@@ -1,5 +1,5 @@
 [Desktop Entry]
 Name=dwl
 Comment=dwm for Wayland
-Exec=dwl
+Exec=slstatus -s | dbus-run-session dwl -s "~/.config/dwl/autostart.sh"
 Type=Application
