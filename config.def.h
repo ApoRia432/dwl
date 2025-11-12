@@ -32,6 +32,11 @@ static const char *const autostart[] = {
         NULL /* terminate */
 };
 
+static const Env envs[] = {
+	/* variable			value */
+	{ "XDG_CURRENT_DESKTOP",	"wlroots" },
+};
+
 
 /* NOTE: ALWAYS keep a rule declared even if you don't use rules (e.g leave at least one example) */
 static const Rule rules[] = {
