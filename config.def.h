@@ -14,6 +14,8 @@ static const char *fonts[]                 = {"monospace:size=10"};
 static const float rootcolor[]             = COLOR(0x000000ff);
 /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
 static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 0.0f}; /* You can also use glsl colors */
+static const char *cursor_theme            = NULL;
+static const char cursor_size[]            = "24"; /* Make sure it's a valid integer, otherwise things will break */
 
 static const int opacity = 0; /* flag to enable opacity */
 static const float opacity_inactive = 0.5;
