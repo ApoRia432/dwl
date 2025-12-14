@@ -273,6 +273,7 @@ typedef struct {
 	float y;
 	float w;
 	float h;
+    float opacity;
 } Rule;
 
 typedef struct {
@@ -565,6 +566,7 @@ applyrules(Client *c)
 		if ((!r->title || strstr(title, r->title))
 				&& (!r->id || strstr(appid, r->id))) {
 			c->isfloating = r->isfloating;
+            c->opacity = r->opacity;
 			newtags |= r->tags;
 			i = 0;
 			wl_list_for_each(m, &mons, link) {
@@ -2797,10 +2799,10 @@ setfullscreen(Client *c, int fullscreen)
 	if (!c->mon || !client_surface(c)->mapped)
 		return;
 	c->bw = fullscreen ? 0 : borderpx;
-    if (fullscreen) 
-        c->opacity = 1.0;
-    else
-        c->opacity = opacity_active;
+    // if (fullscreen) 
+    //     c->opacity = 1.0;
+    // else
+    //     c->opacity = opacity_active;
 	client_set_fullscreen(c, fullscreen);
 	wlr_scene_node_reparent(&c->scene->node, layers[c->isfullscreen
 			? LyrFS : c->isfloating ? LyrFloat : LyrTile]);
@@ -3935,11 +3937,11 @@ update_client_focus_decorations(Client *c, int focused, int urgent)
 		}
 	}
 	if (opacity) {
-        if (c->isfullscreen) {
-            c->opacity = 1.0;
-        } else {
-            c->opacity = focused ? opacity_active : opacity_inactive;
-        }
+        // if (c->isfullscreen) {
+        //     c->opacity = 1.0;
+        // } else {
+        //     c->opacity = focused ? opacity_active : opacity_inactive;
+        // }
 		wlr_scene_node_for_each_buffer(&c->scene_surface->node, iter_xdg_scene_buffers_opacity, c);
 	}
 }

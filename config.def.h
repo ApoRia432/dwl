@@ -68,10 +68,10 @@ static const Env envs[] = {
 
 /* NOTE: ALWAYS keep a rule declared even if you don't use rules (e.g leave at least one example) */
 static const Rule rules[] = {
-	/* app_id             title       tags mask     isfloating   monitor   x   y   width   height */
+	/* app_id             title       tags mask     isfloating   monitor   x   y   width   height   opacity*/
 	/* examples: */
-	{ "Gimp_EXAMPLE",     NULL,       0,            1,           -1,       0,  0,  1000,   0.75 }, /* Start on currently visible tags floating, not tiled */
-	{ "firefox_EXAMPLE",  NULL,       1 << 8,       0,           -1,       0,  0,  0,      0 },/* Start on ONLY tag "9" */
+	{ "Gimp_EXAMPLE",     NULL,       0,            1,           -1,       0,  0,  1000,   0.75,    0.97}, /* Start on currently visible tags floating, not tiled */
+	{ "firefox_EXAMPLE",  NULL,       1 << 8,       0,           -1,       0,  0,  0,      0,       1.0},/* Start on ONLY tag "9" */
 };
 
 /* layout(s) */
