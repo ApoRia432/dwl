@@ -12,7 +12,7 @@ DWLDEVCFLAGS = -g -pedantic -Wall -Wextra \
 	-Wfloat-conversion
 
 # CFLAGS / LDFLAGS
-PKGS      = scenefx-0.2 wlroots-0.18 wayland-server xkbcommon libinput pixman-1 fcft $(XLIBS)
+PKGS      = scenefx-0.3 wlroots-0.18 wayland-server xkbcommon libinput pixman-1 fcft $(XLIBS)
 DWLCFLAGS = `$(PKG_CONFIG) --cflags $(PKGS)` $(DWLCPPFLAGS) $(DWLDEVCFLAGS) $(CFLAGS)
 LDLIBS    = `$(PKG_CONFIG) --libs $(PKGS)` -lm $(LIBS)
 
