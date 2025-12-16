@@ -17,6 +17,7 @@
 #include <scenefx/types/fx/corner_location.h>
 #include <scenefx/types/wlr_scene.h>
 #include <unistd.h>
+#include <regex.h>
 #include <wayland-server-core.h>
 #include <wayland-util.h>
 #include <wlr/backend.h>
@@ -418,6 +419,7 @@ static Monitor *xytomon(double x, double y);
 static void xytonode(double x, double y, struct wlr_surface **psurface,
 		Client **pc, LayerSurface **pl, double *nx, double *ny);
 static void zoom(const Arg *arg);
+static int regex_match(const char *pattern, const char *str);
 static void iter_xdg_scene_buffers(struct wlr_scene_buffer *buffer, int sx, int sy, void *user_data);
 static void iter_xdg_scene_buffers_blur(struct wlr_scene_buffer *buffer, int sx, int sy, void *user_data);
 static void iter_xdg_scene_buffers_opacity(struct wlr_scene_buffer *buffer, int sx, int sy, void *user_data);
@@ -564,8 +566,8 @@ applyrules(Client *c)
 		title = broken;
 
 	for (r = rules; r < END(rules); r++) {
-		if ((!r->title || strstr(title, r->title))
-				&& (!r->id || strstr(appid, r->id))) {
+		if ((!r->title || regex_match(r->title, title))
+				&& (!r->id || regex_match(r->id, appid))) {
 			c->isfloating = r->isfloating;
             c->opacity = r->opacity;
 			newtags |= r->tags;
@@ -3976,6 +3978,19 @@ update_client_focus_decorations(Client *c, int focused, int urgent)
         // }
 		wlr_scene_node_for_each_buffer(&c->scene_surface->node, iter_xdg_scene_buffers_opacity, c);
 	}
+}
+
+int
+regex_match(const char *pattern, const char *str) {
+  regex_t regex;
+  int reti;
+  if (regcomp(&regex, pattern, REG_EXTENDED) != 0)
+    return 0;
+  reti = regexec(&regex, str, (size_t)0, NULL, 0);
+  regfree(&regex);
+  if (reti == 0)
+    return 1;
+  return 0;
 }
 
 #ifdef XWAYLAND
